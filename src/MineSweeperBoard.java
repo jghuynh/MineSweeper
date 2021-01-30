@@ -47,6 +47,14 @@ public class MineSweeperBoard {
 	}
 	
 	/**
+	 * Gets the number of bombs in the board
+	 * @return the number of bombs
+	 */
+	public int getNumBombs() {
+		return this.numBombs;
+	}
+	
+	/**
 	 * Gets the size of the MineSweeper Board (or the length
 	 * of the board, which is a square)
 	 * 

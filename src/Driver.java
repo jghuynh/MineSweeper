@@ -10,6 +10,9 @@ public class Driver {
 		
 		// adds the bombs, also updates the boxes around the bombs
 		board.addBombs();
+		board.displayBoard();
+		outerBoard.revealBoxes(3,  4);
+//		outerBoard.displayBoard();
 		
 	}
 }

@@ -20,7 +20,7 @@ public class OuterBoard {
 	/**
 	 * The number of bombs on the board
 	 */
-	private int numBombs;
+//	private int numBombs;
 	
 	/**
 	 * The size of the board (the length of one side)
@@ -71,7 +71,16 @@ public class OuterBoard {
 	 * @param colIndex the column index
 	 */
 	public void revealBoxes(int rowIndex, int colIndex) {
+		this.board[rowIndex][colIndex] = Integer.toString(this.innerBoard[rowIndex][colIndex]);
 		
+		
+		// at the very end
+		this.displayBoard();
+	}
+	
+	public static void main(String[] args) {
+		OuterBoard outerBoard = new OuterBoard();
+		outerBoard.displayBoard();
 	}
 	
 	

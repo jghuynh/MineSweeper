@@ -47,6 +47,14 @@ public class MineSweeperBoard {
 	}
 	
 	/**
+	 * Gets the MineSweeper board
+	 * @return the MineSweeper board
+	 */
+	public int[][] getBoard() {
+		return this.board;
+	}
+	
+	/**
 	 * Gets the number of bombs in the board
 	 * @return the number of bombs
 	 */

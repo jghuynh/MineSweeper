@@ -73,7 +73,17 @@ public class OuterBoard {
 	public void revealBoxes(int rowIndex, int colIndex) {
 		this.board[rowIndex][colIndex] = Integer.toString(this.innerBoard[rowIndex][colIndex]);
 		
+		// base case; if current box is not 0
+		if (this.innerBoard[rowIndex][colIndex] != 0) {
+			return;
+		}
 		
+		// if the current box is 0
+		for (int r = rowIndex - 1; r <= rowIndex + 1; r ++) {
+			for (int c = colIndex - 1; c <= colIndex + 1; c ++) {
+				revealBoxes(r, c);
+			}
+		}
 		// at the very end
 		this.displayBoard();
 	}

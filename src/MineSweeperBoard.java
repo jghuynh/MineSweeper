@@ -65,7 +65,7 @@ public class MineSweeperBoard {
 	}
 	
 	/**
-	 * Adds all the bombs onto the board
+	 * Adds all the bombs onto the board and updates the adjacent boxes
 	 */
 	public void addBombs() {
 		Random rand = new Random();

@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Random;
 
 public class MineSweeperBoard {
@@ -71,6 +72,8 @@ public class MineSweeperBoard {
 				
 				// a method that will update the neighboring 
 				// squares around the bomb
+				
+				this.updateNumbers(rowIndex, colIndex);
 			} else {
 				i--;
 			}
@@ -78,6 +81,15 @@ public class MineSweeperBoard {
 		}
 		
 		
+	}
+	
+	/**
+	 * Helper method to display the board
+	 */
+	public void displayBoard() {
+		for (int[] row: this.board) {
+			System.out.println(Arrays.toString(row));
+		}
 	}
 	
 	/**
@@ -89,40 +101,41 @@ public class MineSweeperBoard {
 	 */
 	public void updateNumbers(int row, int col) {
 		
-		for (int i = 0; i < 8; i ++) {
-			// up
-			// if on the top row
-			if (col - 1 < 0) {
-				// top left corner
-				if (row - 1 < 0) {
-					
-				}
-					
-				// top right corner
-				else if (row + 1 > this.size) {
-					
-				} else {
-					this.board[row - 1]
+		for (int r = row - 1; r <= row + 1; r ++) {
+			for (int c = col - 1; c <= col + 1; c ++) {
+				// check if r and c are within the board
+				
+				if (inBoard(r, c)) {
+					if (this.board[r][c] != -1) {
+						this.board[r][c] ++;
+					}
 				}
 				
-				// bottom
-			} else if (col + 1 > this.size) {
-				// bottom left corner
-					if (row - 1 < 0) {
-						
-					}
-						
-					// bottom right corner
-					else if (row + 1 > this.size) {
-						
-					}
-		
+			}
 		}
 		
-		
+	}
 	
+	/**
+	 * Checks if the given row index and column index are on the board dimensions
+	 * @param rowIndex the row index of the board
+	 * @param colIndex the column index of the board
+	 * @return true if the position in the board is legal; false otherwise
+	 */
+	public boolean inBoard(int rowIndex, int colIndex) {
 		
+		if (rowIndex < 0 || colIndex < 0 || rowIndex >= this.size || colIndex >= this.size) {
+			return false;
 		}
+		return true;
+		
+	}
+	
+	public static void main(String[] args) {
+		MineSweeperBoard myBoard = new MineSweeperBoard(9);
+		myBoard.addBombs();
+		
+		myBoard.displayBoard();
 	}
 	
 	

@@ -75,7 +75,7 @@ public class OuterBoard {
 		
 		// base case; if current box is not 0
 		if (this.innerBoard[rowIndex][colIndex] != 0) {
-			return;
+			return; // stop
 		}
 		
 		// if the current box is 0
@@ -84,7 +84,7 @@ public class OuterBoard {
 				revealBoxes(r, c);
 			}
 		}
-		// at the very end
+		
 		this.displayBoard();
 	}
 	

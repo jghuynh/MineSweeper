@@ -66,12 +66,27 @@ public class OuterBoard {
 	}
 	
 	/**
+	 * Checks if the current position on the outer board is legal
+	 * @param rowIndex the row index
+	 * @param colIndex the column index
+	 * @return true if the current space is on the outer board; false otherwise
+	 */
+	public boolean inBoard(int rowIndex, int colIndex) {
+		
+		if (rowIndex < 0 || colIndex < 0 || rowIndex >= this.size || colIndex >= this.size) {
+			return false;
+		}
+		return true;
+		
+	}
+	
+	/**
 	 * Reveals the given box and the surrounding boxes, if applicable
 	 * @param rowIndex the row index
 	 * @param colIndex the column index
 	 */
 	public void revealBoxes(int rowIndex, int colIndex) {
-		this.board[rowIndex][colIndex] = Integer.toString(this.innerBoard[rowIndex][colIndex]);
+		System.out.println(rowIndex + "," + colIndex);
 		
 		// base case; if current box is not 0
 		if (this.innerBoard[rowIndex][colIndex] != 0) {
@@ -81,7 +96,10 @@ public class OuterBoard {
 		// if the current box is 0
 		for (int r = rowIndex - 1; r <= rowIndex + 1; r ++) {
 			for (int c = colIndex - 1; c <= colIndex + 1; c ++) {
-				revealBoxes(r, c);
+				if (this.inBoard(r, c)) {
+					revealBoxes(r, c);
+				}
+				
 			}
 		}
 		

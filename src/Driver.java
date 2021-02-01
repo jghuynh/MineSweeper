@@ -2,7 +2,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class Driver {
-	
+	// Check this out: https://pwmarcz.pl/blog/kaboom/
 	
 	public static void main(String[] args) {
 		

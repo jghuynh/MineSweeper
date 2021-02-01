@@ -23,13 +23,16 @@ public class MineSweeperBoard {
 	 */
 	private int numBombs;
 	
-	
+	/**
+	 * Constructs a MineSweeper board with a specific board size
+	 * @param size the board size (length of a side of the board)
+	 */
 	public MineSweeperBoard(int size) {
 		this.size = size;
 		this.board = new int[this.size][this.size];
 		
 		if 	(this.size < 14) {
-			this.numBombs = 10;
+			this.numBombs = 1;
 		} else if (this.size < 20) {
 			this.numBombs = 40;
 		} else {
@@ -41,9 +44,10 @@ public class MineSweeperBoard {
 	 * Constructs a MineSweeper Board with default size of 14
 	 */
 	public MineSweeperBoard() {
-		this.board = new int[this.defaultSize][this.defaultSize];
-		this.size = this.defaultSize;
-		this.numBombs = 40;
+		this(14);
+//		this.board = new int[this.defaultSize][this.defaultSize];
+//		this.size = this.defaultSize;
+//		this.numBombs = 40;
 	}
 	
 	/**
@@ -70,6 +74,16 @@ public class MineSweeperBoard {
 	 */
 	public int getSize() {
 		return this.size;
+	}
+	
+	/**
+	 * Gets the value associated with the row index and column index
+	 * @param rowIndex the row index
+	 * @param colIndex the column index
+	 * @return the numeric value
+	 */
+	public int getValue(int rowIndex, int colIndex) {
+		return this.board[rowIndex][colIndex];
 	}
 	
 	/**

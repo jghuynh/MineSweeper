@@ -1,4 +1,6 @@
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
 
 public class OuterBoard {
 	
@@ -10,7 +12,16 @@ public class OuterBoard {
 	/**
 	 * The default size of the board
 	 */
-	private int defaultSize = 14;
+	private final static int defaultSize = 14;
+	
+	private HashMap<Integer, HashSet<Integer>> coordinatesVisited;
+	// [0, 0]
+	// [3, 5]
+	// Orrrr
+	// a hashset where
+	// (0, 1) = 1,
+	// (0, 4) = 4
+	// (3, 5) = 35
 	
 	/**
 	 * The MineSweeperBoard board
@@ -31,9 +42,7 @@ public class OuterBoard {
 	 * Default constructs an outer board to show to players
 	 */
 	public OuterBoard() {
-		this.size = this.defaultSize;
-		this.board = new String[this.size][this.size];
-		this.innerBoard = new int [this.size][this.size];
+		this(new MineSweeperBoard(defaultSize));
 	}
 	
 	/**
@@ -44,6 +53,7 @@ public class OuterBoard {
 		this.size  = board.getSize();
 		this.board = new String[this.size][this.size];
 		this.innerBoard = board.getBoard();
+		this.coordinatesVisited = new HashMap<Integer, HashSet<Integer>>();
 	}
 	
 	/**
@@ -86,29 +96,62 @@ public class OuterBoard {
 	 * @param colIndex the column index
 	 */
 	public void revealBoxes(int rowIndex, int colIndex) {
+		/*
+		 * TODO: I have an infinite whileloop or something
+		 * TODO: semantic error; not accurately revealing all 0s
+		 */
+		
 		System.out.println(rowIndex + "," + colIndex);
-		
-		// base case; if current box is not 0
-		if (this.innerBoard[rowIndex][colIndex] != 0) {
-			return; // stop
-		}
-		
-		// if the current box is 0
-		for (int r = rowIndex - 1; r <= rowIndex + 1; r ++) {
-			for (int c = colIndex - 1; c <= colIndex + 1; c ++) {
-				if (this.inBoard(r, c)) {
-					revealBoxes(r, c);
-				}
-				
+		if (this.inBoard(rowIndex, colIndex)) {
+			// base case; if current box is not 0
+			if (this.innerBoard[rowIndex][colIndex] != 0) {
+				this.board[rowIndex][colIndex] = Integer.toString(innerBoard[rowIndex][colIndex]);
+				return; // stop
 			}
+			
+			// if the current box is 0
+			for (int r = rowIndex - 1; r <= rowIndex + 1; r ++) {
+				for (int c = colIndex - 1; c <= colIndex + 1; c ++) {
+					if (this.inBoard(r, c)) {
+//						this.coordinatesVisited.putIfAbsent(r, new HashSet<Integer>());
+						
+						// if we haven't seen this x-coordinate
+						if (!this.coordinatesVisited.containsKey(r)) {
+							this.coordinatesVisited.put(r, new HashSet<Integer>());
+							revealBoxes(r, c);
+						} else {
+							// if we have seen the x-coordinate but not the y-coordinate
+							if (!this.coordinatesVisited.get(r).contains(c)) {
+								this.coordinatesVisited.get(r).add(c);
+								revealBoxes(r, c);
+							}
+						}
+						
+						
+					}
+					
+				}
+			}
+		} else {
+			System.out.println("Oops! Please input a pair of legal coordintes!");
 		}
+		
 		
 		this.displayBoard();
 	}
 	
 	public static void main(String[] args) {
-		OuterBoard outerBoard = new OuterBoard();
+		MineSweeperBoard board = new MineSweeperBoard(9);
+		OuterBoard outerBoard = new OuterBoard(board);
+		board.addBombs();
+		board.displayBoard();
+		outerBoard.revealBoxes(0, 5);
 		outerBoard.displayBoard();
+		
+		
+		
+	
+		
 	}
 	
 	
